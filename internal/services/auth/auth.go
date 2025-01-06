@@ -10,7 +10,7 @@ import (
 	"github.com/azizkhan030/sso-grpc/internal/domain/models"
 	"github.com/azizkhan030/sso-grpc/internal/lib/jwt"
 	"github.com/azizkhan030/sso-grpc/internal/lib/logger/sl"
-	"github.com/azizkhan030/sso-grpc/internal/services/storage"
+	"github.com/azizkhan030/sso-grpc/internal/storage"
 	"golang.org/x/crypto/bcrypt"
 )
 
