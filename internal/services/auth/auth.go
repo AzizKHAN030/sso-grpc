@@ -16,22 +16,16 @@ import (
 
 type Auth struct {
 	log          *slog.Logger
-	userSaver    UserSaver
-	userProvider UserProvider
-	appProvider  AppProvider
+	userSaver    Storage
+	userProvider Storage
+	appProvider  Storage
 	tokenTTL     time.Duration
 }
 
-type UserSaver interface {
+type Storage interface {
 	SaveUser(ctx context.Context, email string, passHash []byte) (uid int64, err error)
-}
-
-type UserProvider interface {
 	User(ctx context.Context, email string) (models.User, error)
 	IsAdmin(ctx context.Context, userId int64) (bool, error)
-}
-
-type AppProvider interface {
 	App(ctx context.Context, appId int) (models.App, error)
 }
 
@@ -43,16 +37,14 @@ var (
 
 func New(
 	log *slog.Logger,
-	userSaver UserSaver,
-	userProvider UserProvider,
-	appProvider AppProvider,
+	storage Storage,
 	tokenTTL time.Duration,
 ) *Auth {
 	return &Auth{
-		userSaver:    userSaver,
-		userProvider: userProvider,
+		userSaver:    storage,
+		userProvider: storage,
 		log:          log,
-		appProvider:  appProvider,
+		appProvider:  storage,
 		tokenTTL:     tokenTTL,
 	}
 }

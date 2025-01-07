@@ -28,9 +28,6 @@ func main() {
 
 	go application.GRPCServer.MustRun()
 
-	// TODO app initialization
-	// TODO start gRPC server
-
 	//Graceful shutDown
 
 	stop := make(chan os.Signal, 1)
