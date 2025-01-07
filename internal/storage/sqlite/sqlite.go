@@ -30,7 +30,7 @@ func New(storagePath string) (*Storage, error) {
 func (s *Storage) App(ctx context.Context, appId int) (models.App, error) {
 	const op = "storage.sqlite.App"
 
-	stmt, err := s.db.Prepare("SELECT id,name,secret FROM apps")
+	stmt, err := s.db.Prepare("SELECT id,name,secret FROM apps WHERE id=?")
 
 	if err != nil {
 		return models.App{}, fmt.Errorf("%s: %w", op, err)
